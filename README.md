@@ -1,17 +1,18 @@
 # dpdk-test-rxtx_callbacks
 Модифицированный пример DPDK rxtx_callbacks с функцией генерации тестового трафика и измерением задержки обработки пакетов.
 
-Быстрый запуск
-bash
+## Быстрый запуск
+```bash
 # 1. Клонировать репозиторий
 git clone https://github.com/LapshinAE0/dpdk-test-rxtx_callbacks.git
 cd dpdk-test-rxtx_callbacks
 
 # 2. Запустить сборку и тест
 ./setup.sh
+```
 
-Структура проекта
-text
+## Структура проекта
+```text
 ├── Dockerfile           # Сборка образа с DPDK
 ├── setup.sh            # Скрипт сборки и запуска
 ├── scripts/
@@ -19,9 +20,10 @@ text
 ├── src/
 │   └── main.c          # Модифицированный код DPDK
 └── logs/               # Директория для логов
+```
 
-Зависимости в контейнере
-text
+## Зависимости в контейнере
+```text
 build-essential      # Компиляторы GCC, make, библиотеки C
 meson               # Система сборки
 ninja-build         # Ускоритель сборки
@@ -32,8 +34,8 @@ libelf-dev          # Работа с ELF файлами (для DPDK сборк
 wget                # Загрузка архива DPDK
 xz-utils            # Распаковка .tar.xz архива
 pyelftools          # Обработка ELF файлов (через pip)
-
-Модификации main.c
+```
+## Модификации main.c
 Основные изменения:
 Добавлена функция traffic_gen() - генерирует 1000 тестовых пакетов по 64 байта, заполняет случайными данными и отправляет через порт 0
 
@@ -41,8 +43,8 @@ pyelftools          # Обработка ELF файлов (через pip)
 
 Вызов генератора трафика - добавлен в main() перед lcore_main() для инициализации тестового трафика
 
-Ожидаемый вывод
-text
+## Ожидаемый вывод
+```text
 Port 0 MAC: 00 00 00 00 00 00
 Port 1 MAC: 00 00 00 00 00 00
 
@@ -52,9 +54,10 @@ Latency = 66 cycles             # Реальные задержки
 Latency = 78 cycles
 ...
 Processed 10048 packets. Exiting.
+```
 
-Docker команды
-bash
+## Docker команды
+```bash
 # Сборка образа
 docker build -t dpdk-test .
 
@@ -63,8 +66,8 @@ docker run -it --rm dpdk-test /DPDK/scripts/run_example_dpdk.sh
 
 # Интерактивный режим
 docker run -it --rm dpdk-test bash
-
-Параметры DPDK
+```
+## Параметры DPDK
 --no-huge - без hugepages
 
 --vdev=net_ring0/1 - виртуальные ring buffer устройства
